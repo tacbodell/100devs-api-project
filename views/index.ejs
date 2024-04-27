@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>BOOKS API</title>
+</head>
+<body>
+    <div class="center">
+        <h1>Favorite Books API</h1>
+        <p>https://one00devs-api-project.onrender.com/api/book-name</p>
+        <h2>Search for a book:</h2>
+        <p>Please include either a book name, or an author's name.</p>
+
+        <input type="text" placeholder="book id" name="id">
+        <button type="submit" id="searchButton">Submit</button>
+
+        <h2>Books:</h2>
+        <ul>
+        <% for (const book in books) { %>
+            <li>
+                <span><%= JSON.stringify(books[book].Title)%></span>
+                <span>Author: <%= JSON.stringify(books[book].Author)%></span>
+                <span>Genre: <%= JSON.stringify(books[book].Genre)%></span>
+            </li>
+        <% } %>
+        </ul>
+        <h2>Search Result:</h2>
+        <ul>
+            <li>
+                <span id="searchResultArea"></span>
+            </li>
+        </ul>
+    </div>
+    <script src="homepage.js"></script>
+</body>
+</html>

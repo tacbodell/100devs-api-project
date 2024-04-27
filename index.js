@@ -3,42 +3,49 @@ const app = express();
 const cors = require('cors');
 
 app.use(cors());
+app.use(express.static('public'));
+app.set('view engine', 'ejs');
 
-const rappers = {
-    '21 savage': {
-        'age': 31,
-        'birthName': 'Sheyaa Bin Abraham-Joseph',
-        'birthLocation': 'London, England',
+const books = {
+    "all tomorrows": {
+        "Title": "All Tomorrows",
+        "Author": "C.M. Kösemen",
+        "Genre": "Science Fiction",
+        "id": 1
     },
-    'chance the rapper': {
-        'age': 31,
-        'birthName': 'Chancelor Johnathan Bennett',
-        'birthLocation': 'Chicago, Illinois',
+    "the way of kings": {
+        "Title": "The Way of Kings",
+        "Author": "Robert Jordan",
+        "Genre": "High Fantasy",
+        "Series": "The Wheel of Time",
+        "id": 2
     },
-    'tyler the creator': {
-        'age': 33,
-        'birthName': 'Tyler Gregory Okonma',
-        'birthLocation': 'Hawthorne, California',
+    "how to win friends and influence people": {
+        "Title": "How to Win Friends and Influence People",
+        "Author": "Dale Carnegie",
+        "Genre": "Self-Help Book",
+        "id": 3
     },
-    'dailon': {
-        'age': 'Dailon',
-        'birthName': 'Dailon',
-        'birthLocation': 'Dailon',
+    "atomic habits": {
+        "Title": "Atomic Habits",
+        "Author": "Dale Carnegie",
+        "Genre": "Self-Help Book",
+        "id": 4
     },
 }
 
 app.get('/', (req,res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.render('index.ejs', { books: books, } );
 })
 
 app.get('/api', (req,res) => {
-    res.json(rappers);
+    res.json(books);
 })
 
-app.get('/api/:rapper', (req,res) => {
-    const rapper = (req.params.rapper).toLowerCase();
-    if (rapper in rappers) {
-        res.json(rappers[rapper]);
+app.get('/api/:book', (req,res) => {
+    const book = (req.params.book).toLowerCase();
+    if (book in books) {
+        res.json(books[book]);
     }   else {
         res.statusMessage = 'name does not exist in api';
         res.status(404);
